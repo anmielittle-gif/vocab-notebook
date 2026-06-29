@@ -355,6 +355,15 @@ function extractLookupWord(raw) {
   return s.split(/\s+/)[0].replace(/[^a-zA-Z'-]/g, '').toLowerCase();
 }
 
+/* Normalize IPA to Cambridge-friendly style:
+   ɡ (U+0261 script g) → g,  ɹ (U+0279 turned r) → r  */
+function normalizeIpa(ipa) {
+  if (!ipa) return ipa;
+  return ipa
+    .replace(/\u0261/g, 'g')   // ɡ → g
+    .replace(/\u0279/g, 'r');  // ɹ → r
+}
+
 /* Fetch IPA from Free Dictionary API. Returns IPA string or null. */
 async function fetchIpaFromApi(rawWord) {
   const lookupWord = extractLookupWord(rawWord);
@@ -375,6 +384,7 @@ async function fetchIpaFromApi(rawWord) {
         }
       }
     }
+    ipa = normalizeIpa(ipa);
     ipaCache[cacheKey] = ipa;
     saveIpaCache();
     return ipa;
