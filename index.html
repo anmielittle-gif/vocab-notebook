@@ -340,9 +340,12 @@
    Structure: { "word_lowercase": "/ɪˈpæ/" | null }
    null means "looked up, not found"
    ============================================================ */
-const IPA_CACHE_KEY = 'ipa-cache-v1';
+const IPA_CACHE_KEY = 'ipa-cache-v2'; // bumped to clear old cache with ɡ/ɹ
 let ipaCache = {};
-try { ipaCache = JSON.parse(localStorage.getItem(IPA_CACHE_KEY) || '{}'); } catch(e) { ipaCache = {}; }
+try {
+  localStorage.removeItem('ipa-cache-v1'); // clear old un-normalized cache
+  ipaCache = JSON.parse(localStorage.getItem(IPA_CACHE_KEY) || '{}');
+} catch(e) { ipaCache = {}; }
 function saveIpaCache() { try { localStorage.setItem(IPA_CACHE_KEY, JSON.stringify(ipaCache)); } catch(e) {} }
 
 /* Extract the first real English word/token from a phrase like "to make ends meet" */
