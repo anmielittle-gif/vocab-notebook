@@ -38,7 +38,7 @@
   .progress-bar{ flex:1; height:4px; background:var(--line); border-radius:4px; margin:0 12px; overflow:hidden; }
   .progress-fill{ height:100%; background:var(--teal); transition:width .25s; }
   .stage{ display:flex; flex-direction:column; align-items:center; }
-  .card-scene{ width:100%; max-width:420px; height:270px; perspective:1400px; margin:4px 0 22px; }
+  .card-scene{ width:100%; max-width:420px; height:290px; perspective:1400px; margin:4px 0 22px; }
   .card{ position:relative; width:100%; height:100%; transition:transform .5s cubic-bezier(.2,.8,.2,1); transform-style:preserve-3d; cursor:pointer; }
   .card.flipped{ transform:rotateY(180deg); }
   .face{ position:absolute; inset:0; border-radius:var(--radius); backface-visibility:hidden; box-shadow:var(--shadow); padding:28px; display:flex; flex-direction:column; }
@@ -46,9 +46,59 @@
   .face.back{ background:var(--teal); color:#f4f1e8; transform:rotateY(180deg); justify-content:flex-start; }
   .card-tag{ position:absolute; top:16px; left:18px; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--amber); font-weight:700; }
   .face.back .card-tag{ color:var(--amber); }
-  .word-title{ font-family:'Fraunces',serif; font-size:30px; font-weight:600; line-height:1.15; margin:0 0 6px; }
-  .hint{ font-size:12.5px; color:var(--ink-soft); margin-top:10px; }
-  .back-meaning{ font-family:'Fraunces',serif; font-size:21px; font-weight:600; margin:30px 0 10px; line-height:1.3; }
+  .word-title{ font-family:'Fraunces',serif; font-size:28px; font-weight:600; line-height:1.15; margin:0 0 4px; }
+  /* IPA styles */
+  .ipa-badge{
+    display:inline-block;
+    font-size:13.5px;
+    color:var(--teal-light);
+    background:rgba(47,79,77,0.07);
+    border:1px solid rgba(47,79,77,0.15);
+    border-radius:6px;
+    padding:2px 8px;
+    margin:2px 0 6px;
+    letter-spacing:0.03em;
+    font-family:'Work Sans',sans-serif;
+    font-weight:500;
+    min-height:22px;
+    transition:opacity .3s;
+  }
+  .ipa-badge.loading{ opacity:0.4; font-style:italic; font-size:11px; }
+  .ipa-badge.not-found{ opacity:0; height:0; padding:0; margin:0; border:none; }
+  /* IPA on back card (dark) */
+  .face.back .ipa-badge{
+    color:rgba(244,241,232,0.65);
+    background:rgba(255,255,255,0.08);
+    border-color:rgba(255,255,255,0.15);
+    font-size:12.5px;
+    margin:0 0 10px;
+  }
+  /* IPA in quiz */
+  .quiz-ipa{
+    font-size:13px;
+    color:var(--ink-soft);
+    background:rgba(47,79,77,0.06);
+    border:1px solid rgba(47,79,77,0.12);
+    border-radius:6px;
+    padding:2px 8px;
+    display:inline-block;
+    margin:4px 0 2px;
+    letter-spacing:0.03em;
+    min-height:20px;
+    transition:opacity .3s;
+  }
+  .quiz-ipa.loading{ opacity:0.35; font-style:italic; font-size:11px; }
+  .quiz-ipa.not-found{ display:none; }
+  /* IPA in list */
+  .list-ipa{
+    font-size:12px;
+    color:var(--teal-light);
+    letter-spacing:0.02em;
+    margin:1px 0 3px;
+    min-height:16px;
+  }
+  .hint{ font-size:12.5px; color:var(--ink-soft); margin-top:8px; }
+  .back-meaning{ font-family:'Fraunces',serif; font-size:21px; font-weight:600; margin:0 0 10px; line-height:1.3; }
   .back-example{ font-size:14px; line-height:1.55; color:#dfe6e2; font-style:italic; border-left:2px solid var(--amber); padding-left:12px; display:flex; align-items:flex-start; gap:8px; }
   .nav-row{ display:flex; align-items:center; justify-content:center; gap:14px; width:100%; max-width:420px; }
   .btn{ font-family:inherit; font-size:14px; font-weight:600; border-radius:999px; border:1px solid var(--line); background:var(--paper); color:var(--ink); padding:11px 18px; cursor:pointer; transition:transform .12s,box-shadow .12s,background .15s; }
@@ -83,8 +133,6 @@
   .quiz-feedback .answer-key{ display:block; margin-top:4px; color:var(--ink-soft); }
   .quiz-feedback .answer-key b{ color:var(--ink); }
   .quiz-example{ display:block; margin-top:8px; font-style:italic; color:var(--ink-soft); font-size:13px; }
-
-  /* Score panel */
   .score-panel{ background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:28px; margin-bottom:20px; text-align:center; }
   .score-big{ font-family:'Fraunces',serif; font-size:52px; font-weight:700; color:var(--teal); line-height:1; margin:8px 0 4px; }
   .score-label{ font-size:13px; color:var(--ink-soft); margin-bottom:16px; }
@@ -95,8 +143,6 @@
   .score-stats{ display:flex; gap:12px; justify-content:center; margin-bottom:20px; }
   .score-stat{ background:var(--bg); border-radius:10px; padding:10px 16px; font-size:13px; text-align:center; }
   .score-stat b{ display:block; font-size:20px; font-weight:700; color:var(--ink); }
-
-  /* Retry practice — FIXED */
   .retry-section{ margin-top:20px; }
   .retry-header{ font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-soft); font-weight:700; margin-bottom:12px; }
   .retry-item{ background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-bottom:10px; transition: border-color .2s; }
@@ -115,8 +161,6 @@
   .retry-status.done{ color:var(--teal); }
   .retry-status.wrong{ color:var(--coral); }
   .retry-wrong-count{ font-size:11px; color:var(--ink-soft); margin-top:4px; }
-
-  /* List view */
   .list-card{ background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; margin-bottom:10px; }
   .list-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
   .list-word{ font-family:'Fraunces',serif; font-size:18px; font-weight:600; margin:0; display:inline; }
@@ -141,18 +185,18 @@
   .section-label{ font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-soft); font-weight:700; margin:22px 0 10px; }
   .toast{ position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--teal); color:#fff; padding:10px 18px; border-radius:999px; font-size:13px; font-weight:600; box-shadow:var(--shadow); opacity:0; transition:opacity .25s,transform .25s; pointer-events:none; z-index:10; }
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-
-  /* Speak buttons */
   .speak-btn{ font-family:inherit; border:1px solid var(--line); background:var(--paper); color:var(--teal); width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:15px; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; transition:background .12s,transform .12s; }
   .speak-btn:hover{ background:var(--amber-soft); }
   .speak-btn:active{ transform:scale(0.92); }
-  .face.front .speak-btn{ margin-top:8px; }
+  .face.front .speak-btn{ margin-top:6px; }
   .face.back .speak-btn{ background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.3); color:#f4f1e8; width:28px; height:28px; font-size:13px; margin-top:1px; }
   .face.back .speak-btn:hover{ background:rgba(255,255,255,0.22); }
   .quiz-card .word-title{ display:inline; }
   .quiz-word-row{ display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; }
   .speak-btn-sm{ width:26px; height:26px; font-size:12px; }
   .speak-btn.disabled-speak{ opacity:0.35; cursor:default; }
+  /* front topic */
+  #frontTopic{ font-size:11px;color:var(--ink-soft);margin-top:6px;letter-spacing:0.06em; }
 </style>
 </head>
 <body>
@@ -182,13 +226,15 @@
         <div class="face front">
           <div class="card-tag">Từ vựng</div>
           <h2 class="word-title" id="frontWord">—</h2>
+          <div class="ipa-badge" id="frontIpa"></div>
           <button class="speak-btn" id="speakFrontBtn" type="button" aria-label="Phát âm từ">🔊</button>
           <p class="hint">Chạm vào thẻ để xem nghĩa</p>
-          <p id="frontTopic" style="font-size:11px;color:var(--ink-soft);margin-top:8px;letter-spacing:0.06em;"></p>
+          <p id="frontTopic"></p>
         </div>
         <div class="face back">
           <div class="card-tag">Nghĩa</div>
           <div class="back-meaning" id="backMeaning">—</div>
+          <div class="ipa-badge" id="backIpa" style="font-size:12px;"></div>
           <div class="back-example"><button class="speak-btn" id="speakExampleBtn" type="button" aria-label="Phát âm câu ví dụ">🔊</button><span id="backExample">—</span></div>
         </div>
       </div>
@@ -206,7 +252,6 @@
 
   <!-- QUIZ VIEW -->
   <div id="quizView" style="display:none;">
-    <!-- Score panel (shown after round) -->
     <div id="scorePanelWrap" style="display:none;">
       <div class="score-panel">
         <div class="eyebrow" style="text-align:center;">Kết quả phiên quiz</div>
@@ -230,7 +275,6 @@
       </div>
     </div>
 
-    <!-- Active quiz -->
     <div id="activeQuizWrap">
       <div class="topic-filter" id="quizTopicFilter"></div>
       <div class="direction-toggle">
@@ -249,9 +293,12 @@
       <div class="quiz-card">
         <div class="card-tag" id="quizDirLabel">Dịch nghĩa sang tiếng Việt</div>
         <p id="quizTopicLabel" style="font-size:11px;color:var(--ink-soft);margin:2px 0 0;letter-spacing:0.06em;"></p>
-        <div class="quiz-word-row">
-          <h2 class="word-title" id="quizWord">—</h2>
-          <button class="speak-btn" id="speakQuizBtn" type="button" aria-label="Phát âm">🔊</button>
+        <div class="quiz-word-row" style="flex-direction:column;gap:2px;">
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px;">
+            <h2 class="word-title" id="quizWord">—</h2>
+            <button class="speak-btn" id="speakQuizBtn" type="button" aria-label="Phát âm">🔊</button>
+          </div>
+          <div class="quiz-ipa" id="quizIpa"></div>
         </div>
         <input type="text" id="quizInput" class="quiz-input" placeholder="Gõ nghĩa tiếng Việt..." autocomplete="off">
         <div id="mcOptions" class="mc-options" style="display:none;"></div>
@@ -288,6 +335,74 @@
 </div>
 
 <script>
+/* ============================================================
+   IPA CACHE — localStorage key: 'ipa-cache-v1'
+   Structure: { "word_lowercase": "/ɪˈpæ/" | null }
+   null means "looked up, not found"
+   ============================================================ */
+const IPA_CACHE_KEY = 'ipa-cache-v1';
+let ipaCache = {};
+try { ipaCache = JSON.parse(localStorage.getItem(IPA_CACHE_KEY) || '{}'); } catch(e) { ipaCache = {}; }
+function saveIpaCache() { try { localStorage.setItem(IPA_CACHE_KEY, JSON.stringify(ipaCache)); } catch(e) {} }
+
+/* Extract the first real English word/token from a phrase like "to make ends meet" */
+function extractLookupWord(raw) {
+  // Strip leading "to ", parentheses chunks, slashes → take first meaningful word
+  let s = raw.split('/')[0].trim();
+  // Remove leading "to " (infinitive marker)
+  s = s.replace(/^to\s+/i, '');
+  // Take first word
+  return s.split(/\s+/)[0].replace(/[^a-zA-Z'-]/g, '').toLowerCase();
+}
+
+/* Fetch IPA from Free Dictionary API. Returns IPA string or null. */
+async function fetchIpaFromApi(rawWord) {
+  const lookupWord = extractLookupWord(rawWord);
+  if (!lookupWord || lookupWord.length < 2) return null;
+  const cacheKey = lookupWord;
+  if (cacheKey in ipaCache) return ipaCache[cacheKey]; // hit (incl. null)
+  try {
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(lookupWord)}`);
+    if (!res.ok) { ipaCache[cacheKey] = null; saveIpaCache(); return null; }
+    const data = await res.json();
+    // Walk entries → phonetics for an IPA text
+    let ipa = null;
+    outer: for (const entry of data) {
+      if (entry.phonetic) { ipa = entry.phonetic; break; }
+      if (entry.phonetics) {
+        for (const ph of entry.phonetics) {
+          if (ph.text) { ipa = ph.text; break outer; }
+        }
+      }
+    }
+    ipaCache[cacheKey] = ipa;
+    saveIpaCache();
+    return ipa;
+  } catch(e) {
+    return null; // network error — don't cache so it can retry
+  }
+}
+
+/* Set an IPA element with loading → result state */
+async function setIpaEl(el, rawWord, darkMode) {
+  if (!el) return;
+  // Only show IPA when direction is en-vi (showing the English word)
+  el.className = darkMode ? 'ipa-badge loading' : (el.classList.contains('quiz-ipa') ? 'quiz-ipa loading' : 'ipa-badge loading');
+  el.textContent = '…';
+  const ipa = await fetchIpaFromApi(rawWord);
+  if (ipa) {
+    el.className = darkMode ? 'ipa-badge' : (el.classList.contains('quiz-ipa') || el.id === 'quizIpa' ? 'quiz-ipa' : 'ipa-badge');
+    // re-apply dark class
+    if (darkMode && el.closest('.face.back')) el.classList.add(''); // already handled by CSS
+    el.textContent = ipa;
+  } else {
+    el.className = darkMode ? 'ipa-badge not-found' : (el.id === 'quizIpa' ? 'quiz-ipa not-found' : 'ipa-badge not-found');
+    el.textContent = '';
+  }
+}
+</script>
+
+<script>
 const STORAGE_KEY = 'vocab-cards-v1';
 const DEFAULT_WORDS = [
   { word:"debt", meaning:"nợ", example:"She took out a loan and now has a lot of debt to pay off.", known:false, topic:"Living with Debt · BBC 6 Min" },
@@ -315,9 +430,8 @@ let order = [], currentIndex = 0;
 let activeTopicReview = null, activeTopicList = null, activeTopicQuiz = null;
 let quizOrder = [], quizIndex = 0;
 let quizChecked = false, quizDirection = 'en-vi', quizMode = 'type';
-
 let sessionCorrect = 0, sessionPartial = 0, sessionWrong = 0, sessionAnswered = 0;
-let wrongWords = []; // array of wordIdx
+let wrongWords = [];
 
 /* ---------- Speech ---------- */
 let speechVoices = [];
@@ -345,6 +459,9 @@ const listView=document.getElementById('listView');
 const listContainer=document.getElementById('listContainer');
 const totalCount=document.getElementById('totalCount');
 const toast=document.getElementById('toast');
+const frontIpaEl=document.getElementById('frontIpa');
+const backIpaEl=document.getElementById('backIpa');
+const quizIpaEl=document.getElementById('quizIpa');
 
 function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),1800); }
 
@@ -388,6 +505,48 @@ function bestSimilarity(u,correct){ return correct.split('/').map(s=>s.trim()).f
 function canonicalAnswer(item,dir){ return dir==='en-vi' ? item.meaning.trim() : item.word.split('/')[0].trim(); }
 function generateOptions(item){ const correct=canonicalAnswer(item,quizDirection); const seen=new Set([normalizeVi(correct)]); const pool=[]; filteredWordsForQuiz().forEach(w=>{ if(w===item) return; const c=canonicalAnswer(w,quizDirection); const n=normalizeVi(c); if(!seen.has(n)){ seen.add(n); pool.push(c); } }); shuffle(pool); const opts=[correct,...pool.slice(0,3)]; shuffle(opts); return {options:opts,correct}; }
 
+/* ---- IPA helpers for card/quiz ---- */
+let currentIpaAbort = null; // simple token to cancel stale fetches
+
+function showIpaForWord(rawWord, showOnQuiz) {
+  // Cancel any in-flight request token
+  const token = {};
+  currentIpaAbort = token;
+
+  // Reset both elements
+  frontIpaEl.className = 'ipa-badge loading';
+  frontIpaEl.textContent = '…';
+  backIpaEl.className = 'ipa-badge loading';
+  backIpaEl.textContent = '…';
+  if (showOnQuiz && quizIpaEl) {
+    quizIpaEl.className = 'quiz-ipa loading';
+    quizIpaEl.textContent = '…';
+  }
+
+  fetchIpaFromApi(rawWord).then(ipa => {
+    if (currentIpaAbort !== token) return; // stale
+    if (ipa) {
+      frontIpaEl.className = 'ipa-badge';
+      frontIpaEl.textContent = ipa;
+      backIpaEl.className = 'ipa-badge';
+      backIpaEl.textContent = ipa;
+      if (showOnQuiz && quizIpaEl) {
+        quizIpaEl.className = 'quiz-ipa';
+        quizIpaEl.textContent = ipa;
+      }
+    } else {
+      frontIpaEl.className = 'ipa-badge not-found';
+      frontIpaEl.textContent = '';
+      backIpaEl.className = 'ipa-badge not-found';
+      backIpaEl.textContent = '';
+      if (showOnQuiz && quizIpaEl) {
+        quizIpaEl.className = 'quiz-ipa not-found';
+        quizIpaEl.textContent = '';
+      }
+    }
+  });
+}
+
 function renderQuiz(){
   const quizWordEl=document.getElementById('quizWord');
   const quizInput=document.getElementById('quizInput');
@@ -399,18 +558,47 @@ function renderQuiz(){
   const quizCheckBtn=document.getElementById('quizCheckBtn');
   const quizDirLabel=document.getElementById('quizDirLabel');
   const speakQuizBtn=document.getElementById('speakQuizBtn');
+
   quizDirLabel.textContent=quizDirection==='en-vi'?'Dịch nghĩa sang tiếng Việt':'Type the English word/phrase';
-  if(words.length===0){ quizWordEl.textContent="Chưa có từ nào"; quizFeedback.innerHTML="Thêm từ ở tab Danh sách để bắt đầu quiz."; quizInput.style.display='block'; mcOptions.style.display='none'; quizCheckBtn.style.display='inline-block'; speakQuizBtn.classList.add('disabled-speak'); speakQuizBtn.onclick=null; return; }
+
+  // Reset IPA
+  quizIpaEl.className = 'quiz-ipa not-found';
+  quizIpaEl.textContent = '';
+
+  if(words.length===0){
+    quizWordEl.textContent="Chưa có từ nào";
+    quizFeedback.innerHTML="Thêm từ ở tab Danh sách để bắt đầu quiz.";
+    quizInput.style.display='block'; mcOptions.style.display='none'; quizCheckBtn.style.display='inline-block';
+    speakQuizBtn.classList.add('disabled-speak'); speakQuizBtn.onclick=null;
+    return;
+  }
+
   const idx=quizOrder[quizIndex];
   const item=words[idx];
-  quizWordEl.textContent=quizDirection==='en-vi' ? item.word : item.meaning;
+  const displayWord = quizDirection==='en-vi' ? item.word : item.meaning;
+  quizWordEl.textContent = displayWord;
   document.getElementById('quizTopicLabel').textContent=item.topic||'';
   quizChecked=false; quizFeedback.innerHTML='';
   quizProgressLabel.textContent='Câu '+(quizIndex+1)+' / '+quizOrder.length;
   quizProgressFill.style.width=((quizIndex/quizOrder.length)*100)+'%';
   quizScoreLabel.textContent=sessionCorrect+' đúng / '+sessionAnswered+' câu';
+
   speakQuizBtn.classList.remove('disabled-speak');
   speakQuizBtn.onclick=(e)=>{ e.stopPropagation(); if(quizDirection==='en-vi') speakEn(item.word); else speakVi(item.meaning); };
+
+  // Show IPA only when showing the English word
+  if(quizDirection==='en-vi'){
+    quizIpaEl.className = 'quiz-ipa loading';
+    quizIpaEl.textContent = '…';
+    const token = {};
+    currentIpaAbort = token;
+    fetchIpaFromApi(item.word).then(ipa => {
+      if(currentIpaAbort !== token) return;
+      if(ipa){ quizIpaEl.className='quiz-ipa'; quizIpaEl.textContent=ipa; }
+      else { quizIpaEl.className='quiz-ipa not-found'; quizIpaEl.textContent=''; }
+    });
+  }
+
   if(quizMode==='mc'){
     quizInput.style.display='none'; quizCheckBtn.style.display='none'; mcOptions.style.display='grid'; mcOptions.innerHTML='';
     if(words.length<2){ mcOptions.innerHTML='<p style="color:var(--ink-soft);font-size:14px;">Cần thêm ít nhất 2 từ để dùng trắc nghiệm.</p>'; return; }
@@ -495,27 +683,18 @@ function showScorePanel(){
   else { practiceBtn.textContent=`Luyện ${wrongWords.length} từ sai`; practiceBtn.disabled=false; }
 }
 
-/* ============================================================
-   RETRY PRACTICE — FIXED
-   Logic: nhập đúng 1 lần là xong, nhập sai thì hiện đỏ + hint,
-   thử lại cho đến khi đúng. Không giới hạn số lần thử.
-   ============================================================ */
 function startRetryPractice(){
   if(wrongWords.length===0) return;
   const section=document.getElementById('retrySection');
   section.style.display='block';
   const container=document.getElementById('retryList');
   container.innerHTML='';
-
   wrongWords.forEach((wordIdx, ri) => {
     const item = words[wordIdx];
     const correctAnswer = quizDirection === 'en-vi' ? item.meaning : item.word;
     const questionText  = quizDirection === 'en-vi' ? item.word   : item.meaning;
     const speakWord     = item.word.split('/')[0].trim();
-
-    let wrongCount = 0;
-    let solved = false;
-
+    let wrongCount = 0, solved = false;
     const div = document.createElement('div');
     div.className = 'retry-item';
     div.innerHTML = `
@@ -523,6 +702,7 @@ function startRetryPractice(){
         <p class="retry-word">${escapeHtml(questionText)}</p>
         <button class="speak-btn speak-btn-sm retry-speak-btn" type="button" aria-label="Phát âm">🔊</button>
       </div>
+      <div class="list-ipa" id="ripa-${ri}"></div>
       <p class="retry-hint">${quizDirection === 'en-vi' ? 'Nghĩa tiếng Việt là gì?' : 'Từ tiếng Anh là gì?'}</p>
       <div class="retry-input-row">
         <input class="retry-input" id="ri-input-${ri}" type="text"
@@ -537,77 +717,77 @@ function startRetryPractice(){
       </p>`;
     container.appendChild(div);
 
+    // Fetch IPA for retry items (English words only)
+    if(quizDirection === 'en-vi'){
+      const ripaEl = document.getElementById('ripa-'+ri);
+      fetchIpaFromApi(item.word).then(ipa => {
+        if(ipa && ripaEl) ripaEl.textContent = ipa;
+      });
+    }
+
     const inp    = document.getElementById('ri-input-' + ri);
     const btn    = document.getElementById('ri-btn-'   + ri);
     const status = document.getElementById('ri-status-' + ri);
     const wc     = document.getElementById('ri-wc-'    + ri);
     const reveal = document.getElementById('ri-reveal-' + ri);
     const speakBtn = div.querySelector('.retry-speak-btn');
-
     speakBtn.addEventListener('click', () => speakEn(speakWord));
-
     function attempt() {
       if (solved) return;
       const val = inp.value.trim();
       if (!val) { inp.focus(); return; }
-
       const sim = bestSimilarity(val, correctAnswer);
       const isCorrect = sim >= 0.75;
-
       if (isCorrect) {
         solved = true;
-        inp.className     = 'retry-input correct';
-        inp.disabled      = true;
-        btn.disabled      = true;
-        status.className  = 'retry-status done';
-        status.textContent = '✓ Đúng!';
-        wc.textContent    = wrongCount > 0 ? `(đã thử ${wrongCount} lần sai trước đó)` : '';
-        reveal.style.display = 'block';
-        div.classList.add('retry-done');
-        speakEn(speakWord);
-        // Check if all solved
-        checkAllRetrySolved();
+        inp.className='retry-input correct'; inp.disabled=true; btn.disabled=true;
+        status.className='retry-status done'; status.textContent='✓ Đúng!';
+        wc.textContent=wrongCount>0?`(đã thử ${wrongCount} lần sai trước đó)`:'';
+        reveal.style.display='block'; div.classList.add('retry-done');
+        speakEn(speakWord); checkAllRetrySolved();
       } else {
         wrongCount++;
-        inp.className     = 'retry-input incorrect';
-        status.className  = 'retry-status wrong';
-        // After 2 wrong tries, show a hint (first word of answer)
-        const hint = wrongCount >= 2
-          ? ` (gợi ý: "${correctAnswer.split(' ').slice(0,2).join(' ')}…")`
-          : '';
-        status.textContent = `✗ Chưa đúng — thử lại nhé!${hint}`;
-        wc.textContent = `Đã sai ${wrongCount} lần`;
-        inp.value = '';
-        inp.focus();
-        // Shake animation
-        inp.style.transform = 'translateX(-4px)';
-        setTimeout(() => { inp.style.transform = 'translateX(4px)'; }, 80);
-        setTimeout(() => { inp.style.transform = ''; }, 160);
+        inp.className='retry-input incorrect';
+        status.className='retry-status wrong';
+        const hint=wrongCount>=2?` (gợi ý: "${correctAnswer.split(' ').slice(0,2).join(' ')}…")`:'';
+        status.textContent=`✗ Chưa đúng — thử lại nhé!${hint}`;
+        wc.textContent=`Đã sai ${wrongCount} lần`;
+        inp.value=''; inp.focus();
+        inp.style.transform='translateX(-4px)';
+        setTimeout(()=>{ inp.style.transform='translateX(4px)'; },80);
+        setTimeout(()=>{ inp.style.transform=''; },160);
       }
     }
-
     btn.addEventListener('click', attempt);
-    inp.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+    inp.addEventListener('keydown', e=>{ if(e.key==='Enter') attempt(); });
   });
-
-  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  section.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
-function checkAllRetrySolved() {
-  const allItems = document.querySelectorAll('#retryList .retry-item');
-  const allDone  = document.querySelectorAll('#retryList .retry-item.retry-done');
-  if (allItems.length > 0 && allItems.length === allDone.length) {
-    const header = document.getElementById('retryHeaderLabel');
-    if (header) header.textContent = '🎉 Bạn đã luyện xong tất cả từ sai!';
+function checkAllRetrySolved(){
+  const allItems=document.querySelectorAll('#retryList .retry-item');
+  const allDone=document.querySelectorAll('#retryList .retry-item.retry-done');
+  if(allItems.length>0&&allItems.length===allDone.length){
+    const header=document.getElementById('retryHeaderLabel');
+    if(header) header.textContent='🎉 Bạn đã luyện xong tất cả từ sai!';
   }
 }
-
-/* ============================================================ */
 
 function renderCard(){
   const speakFrontBtn=document.getElementById('speakFrontBtn');
   const speakExampleBtn=document.getElementById('speakExampleBtn');
-  if(words.length===0){ frontWordEl.textContent="Chưa có từ nào"; backMeaningEl.textContent="Thêm từ ở tab Danh sách"; backExampleEl.textContent=""; progressLabel.textContent="0 / 0"; progressFill.style.width="0%"; document.getElementById('frontTopic').textContent=""; speakFrontBtn.classList.add('disabled-speak'); speakFrontBtn.onclick=null; speakExampleBtn.classList.add('disabled-speak'); speakExampleBtn.onclick=null; return; }
+
+  // Reset IPA immediately
+  frontIpaEl.className='ipa-badge not-found'; frontIpaEl.textContent='';
+  backIpaEl.className='ipa-badge not-found'; backIpaEl.textContent='';
+
+  if(words.length===0){
+    frontWordEl.textContent="Chưa có từ nào"; backMeaningEl.textContent="Thêm từ ở tab Danh sách"; backExampleEl.textContent="";
+    progressLabel.textContent="0 / 0"; progressFill.style.width="0%"; document.getElementById('frontTopic').textContent="";
+    speakFrontBtn.classList.add('disabled-speak'); speakFrontBtn.onclick=null;
+    speakExampleBtn.classList.add('disabled-speak'); speakExampleBtn.onclick=null;
+    return;
+  }
   if(order.length===0) resetOrder();
   const idx=order[currentIndex];
   const item=words[idx];
@@ -618,11 +798,29 @@ function renderCard(){
   progressLabel.textContent=(currentIndex+1)+" / "+order.length;
   progressFill.style.width=(((currentIndex+1)/order.length)*100)+"%";
   knownLabel.textContent=words.filter(w=>w.known).length+" đã nhớ";
+
   speakFrontBtn.classList.remove('disabled-speak');
   speakFrontBtn.onclick=(e)=>{ e.stopPropagation(); speakEn(item.word); };
   if(item.example){ speakExampleBtn.classList.remove('disabled-speak'); speakExampleBtn.onclick=(e)=>{ e.stopPropagation(); speakEn(item.example); }; }
   else { speakExampleBtn.classList.add('disabled-speak'); speakExampleBtn.onclick=null; }
+
+  // Fetch & display IPA
+  const token = {};
+  currentIpaAbort = token;
+  frontIpaEl.className='ipa-badge loading'; frontIpaEl.textContent='…';
+  backIpaEl.className='ipa-badge loading'; backIpaEl.textContent='…';
+  fetchIpaFromApi(item.word).then(ipa => {
+    if(currentIpaAbort !== token) return;
+    if(ipa){
+      frontIpaEl.className='ipa-badge'; frontIpaEl.textContent=ipa;
+      backIpaEl.className='ipa-badge'; backIpaEl.textContent=ipa;
+    } else {
+      frontIpaEl.className='ipa-badge not-found'; frontIpaEl.textContent='';
+      backIpaEl.className='ipa-badge not-found'; backIpaEl.textContent='';
+    }
+  });
 }
+
 function flipCard(){ if(words.length===0) return; cardEl.classList.toggle('flipped'); }
 function goTo(delta){ if(words.length===0) return; cardEl.classList.remove('flipped'); currentIndex=(currentIndex+delta+order.length)%order.length; renderCard(); }
 function markCurrent(known){ if(words.length===0) return; words[order[currentIndex]].known=known; saveData(); renderCard(); setTimeout(()=>goTo(1),180); }
@@ -635,8 +833,28 @@ function renderList(){
   filtered.forEach(item=>{
     const i=words.indexOf(item);
     const card=document.createElement('div'); card.className='list-card';
-    card.innerHTML=`<div class="list-head"><div><div class="list-word-row"><p class="list-word">${escapeHtml(item.word)}</p><button class="speak-btn speak-btn-sm" data-speak-en="${escapeHtml(item.word.split('/')[0].trim())}" type="button" aria-label="Phát âm">🔊</button></div><p class="list-meaning">${escapeHtml(item.meaning)}</p>${item.topic?`<span class="pill topic">${escapeHtml(item.topic)}</span>`:''}</div><span class="pill ${item.known?'known':'new'}">${item.known?'Đã nhớ':'Đang học'}</span></div>${item.example?`<p class="list-example"><button class="speak-btn speak-btn-sm" data-speak-en="${escapeHtml(item.example)}" type="button" aria-label="Phát âm câu ví dụ">🔊</button><span>"${escapeHtml(item.example)}"</span></p>`:''}<button class="delete-btn" data-idx="${i}">Xóa</button>`;
+    card.innerHTML=`
+      <div class="list-head">
+        <div>
+          <div class="list-word-row">
+            <p class="list-word">${escapeHtml(item.word)}</p>
+            <button class="speak-btn speak-btn-sm" data-speak-en="${escapeHtml(item.word.split('/')[0].trim())}" type="button" aria-label="Phát âm">🔊</button>
+          </div>
+          <div class="list-ipa" id="lipa-${i}"></div>
+          <p class="list-meaning">${escapeHtml(item.meaning)}</p>
+          ${item.topic?`<span class="pill topic">${escapeHtml(item.topic)}</span>`:''}
+        </div>
+        <span class="pill ${item.known?'known':'new'}">${item.known?'Đã nhớ':'Đang học'}</span>
+      </div>
+      ${item.example?`<p class="list-example"><button class="speak-btn speak-btn-sm" data-speak-en="${escapeHtml(item.example)}" type="button" aria-label="Phát âm câu ví dụ">🔊</button><span>"${escapeHtml(item.example)}"</span></p>`:''}
+      <button class="delete-btn" data-idx="${i}">Xóa</button>`;
     listContainer.appendChild(card);
+
+    // Fetch IPA lazily for list items
+    const lipaEl = document.getElementById('lipa-'+i);
+    fetchIpaFromApi(item.word).then(ipa => {
+      if(ipa && lipaEl) lipaEl.textContent = ipa;
+    });
   });
   listContainer.querySelectorAll('[data-speak-en]').forEach(btn=>{ btn.addEventListener('click',()=>speakEn(btn.getAttribute('data-speak-en'))); });
   listContainer.querySelectorAll('.delete-btn').forEach(btn=>{ btn.addEventListener('click',async e=>{ words.splice(parseInt(e.target.getAttribute('data-idx')),1); await saveData(); resetOrder(); resetQuiz(); renderList(); renderCard(); renderTopicFilters(); showToast('Đã xóa từ'); }); });
@@ -674,6 +892,8 @@ document.getElementById('addBtn').addEventListener('click',async()=>{
   const topic=document.getElementById('inTopic').value.trim();
   if(!word||!meaning){ showToast('Nhập từ và nghĩa nhé'); return; }
   words.push({word,meaning,example,known:false,topic});
+  // Pre-fetch IPA for the new word
+  fetchIpaFromApi(word);
   await saveData(); resetOrder(); resetQuiz(); renderTopicFilters(); renderList(); renderCard();
   document.getElementById('inWord').value=''; document.getElementById('inMeaning').value=''; document.getElementById('inExample').value='';
   document.getElementById('inWord').focus();
